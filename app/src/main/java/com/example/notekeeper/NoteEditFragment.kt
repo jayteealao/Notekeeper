@@ -13,10 +13,13 @@ import com.example.notekeeper.databinding.FragmentNoteEditBinding
 import com.example.notekeeper.models.NoteItemModel
 import com.example.notekeeper.models.NoteViewModel
 import android.text.Editable.Factory
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
+
+@AndroidEntryPoint
 class NoteEditFragment : Fragment() {
 
     private val notesmodel: NoteViewModel by activityViewModels()

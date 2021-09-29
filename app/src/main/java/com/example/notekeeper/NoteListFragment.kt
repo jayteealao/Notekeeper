@@ -7,16 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notekeeper.adapters.NoteListAdapter
-import com.example.notekeeper.data.DataManager
 import com.example.notekeeper.databinding.FragmentNoteListBinding
 import com.example.notekeeper.models.NoteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
+@AndroidEntryPoint
 class NoteListFragment : Fragment() {
 
     private val notesmodel: NoteViewModel by activityViewModels()
@@ -35,7 +35,13 @@ class NoteListFragment : Fragment() {
         _binding = FragmentNoteListBinding.inflate(inflater, container, false)
         context ?: return binding.root
         Log.d("devdebugListFragment", "on create view")
+        notesmodel.notes.observe(viewLifecycleOwner) { notes ->
 
+            if (notes.size <= 1) {
+                notesmodel.populateDb()
+            }
+
+        }
         return binding.root
 
     }

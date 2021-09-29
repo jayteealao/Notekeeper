@@ -4,12 +4,15 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.notekeeper.data.Note
 import com.example.notekeeper.data.NoteRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NoteItemModel: ViewModel() {
+@HiltViewModel
+class NoteItemModel @Inject constructor(private val noteRepo: NoteRepository): ViewModel() {
 
-    private val repo = NoteRepository()
+//    consider using mutablelivedata
     var selectedNote: LiveData<Note>? = null
 
 
@@ -24,13 +27,13 @@ class NoteItemModel: ViewModel() {
         selectedNoteId = noteId
         Log.d("devdebug", "note retrieved: $selectedNote")
 
-        selectedNote = repo.getNote(noteId).asLiveData()
+        selectedNote = noteRepo.getNote(noteId).asLiveData()
 
     }
 
     fun newNote(noteId: Int) {
         selectedNoteId = noteId
-        selectedNote = repo.newNote(noteId).asLiveData()
+        selectedNote = noteRepo.newNote(noteId).asLiveData()
     }
 
     fun saveNote(title: String, text: String) {
@@ -43,7 +46,7 @@ class NoteItemModel: ViewModel() {
         )
 
         viewModelScope.launch(Dispatchers.IO) {
-            repo.saveNote(newNote)
+            noteRepo.saveNote(newNote)
         }
 
     }
@@ -57,7 +60,7 @@ class NoteItemModel: ViewModel() {
             checkNotNull(note?.createdAt)
         )
         viewModelScope.launch(Dispatchers.IO) {
-            repo.updateNote(updatedNote)
+            noteRepo.updateNote(updatedNote)
         }
     }
 }

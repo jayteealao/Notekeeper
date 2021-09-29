@@ -1,20 +1,17 @@
 package com.example.notekeeper.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
-import com.example.notekeeper.MainApplication
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.*
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class NoteRepository (){
+@Singleton
+class NoteRepository @Inject constructor(private val noteDao: NoteDao){
 
-    private val db = Notedb.getInstance(MainApplication.applicationContext())
+    fun getnotes() = noteDao.getAll()
 
-    fun getnotes() = db.noteDao().getAll()
-
-    fun getNote(id: Int) = db.noteDao().getNotebyId(id)
+    fun getNote(id: Int) = noteDao.getNotebyId(id)
 
     fun newNote(id: Int): Flow<Note> {
         val note: Flow<Note> = flow {
@@ -30,15 +27,12 @@ class NoteRepository (){
         return note
     }
 
-    suspend fun saveNote(note: Note) = db.noteDao().InsertNote(note)
+    suspend fun saveNote(note: Note) = noteDao.InsertNote(note)
 
-    suspend fun updateNote(note: Note) = db.noteDao().updateNote(note)
-
-    companion object {
-    }
+    suspend fun updateNote(note: Note) = noteDao.updateNote(note)
     
-    suspend fun prepopulateDb(db: Notedb) {
-        db.noteDao().InsertNote(
+    suspend fun prepopulateDb() {
+        noteDao.InsertNote(
             Note(
                 0,
                 "Dynamic intent resolution",

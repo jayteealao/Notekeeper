@@ -8,22 +8,19 @@ import com.example.notekeeper.MainApplication
 import com.example.notekeeper.data.Note
 import com.example.notekeeper.data.NoteRepository
 import com.example.notekeeper.data.Notedb
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class NoteViewModel() : ViewModel() {
+@HiltViewModel
+class NoteViewModel @Inject constructor(private val noteRepo: NoteRepository) : ViewModel() {
 
-    private val repo = NoteRepository()
-
-    init {
-        if (repo.getnotes().asLiveData()?.value?.size == 0) {
-            viewModelScope.launch(Dispatchers.IO) {
-                NoteRepository().prepopulateDb(Notedb.getInstance(MainApplication.applicationContext()))
-            }
-        }
+    fun populateDb() = viewModelScope.launch {
+        noteRepo.prepopulateDb()
     }
 
-    val notes: LiveData<List<Note>> = repo.getnotes().asLiveData()
+    val notes: LiveData<List<Note>> = noteRepo.getnotes().asLiveData()
 
     var selectedNoteId: Int? = null
 
