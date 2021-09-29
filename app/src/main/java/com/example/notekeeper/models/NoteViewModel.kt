@@ -1,14 +1,30 @@
 package com.example.notekeeper.models
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.notekeeper.data.DataManager
-import com.example.notekeeper.data.NoteDao
-import com.example.notekeeper.data.NoteInfo
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.example.notekeeper.MainApplication
+import com.example.notekeeper.data.Note
+import com.example.notekeeper.data.NoteRepository
+import com.example.notekeeper.data.Notedb
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class NoteViewModel(repository: DataManager) : ViewModel() {
+class NoteViewModel() : ViewModel() {
 
-    private val notes: MutableLiveData<List<NoteInfo>> = noteDao.getAll()
+    private val repo = NoteRepository()
 
-    fun loadData() = DataManager.notes
+    init {
+        if (repo.getnotes().asLiveData()?.value?.size == 0) {
+            viewModelScope.launch(Dispatchers.IO) {
+                NoteRepository().prepopulateDb(Notedb.getInstance(MainApplication.applicationContext()))
+            }
+        }
+    }
+
+    val notes: LiveData<List<Note>> = repo.getnotes().asLiveData()
+
+    var selectedNoteId: Int? = null
+
 }

@@ -1,39 +1,79 @@
 package com.example.notekeeper.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notekeeper.R
-import com.example.notekeeper.data.NoteInfo
+import com.example.notekeeper.NoteEditFragmentDirections
+import com.example.notekeeper.NoteListFragmentDirections
+import com.example.notekeeper.data.Note
+import com.example.notekeeper.databinding.ItemNoteListBinding
 
-class NoteListAdapter(private val notes: ArrayList<NoteInfo>) : RecyclerView.Adapter<NoteListAdapter.NoteItemViewHolder>() {
+class NoteListAdapter : ListAdapter<Note, NoteListAdapter.NoteItemViewHolder>(NoteDiffCallback()) {
 
-    class NoteItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class NoteItemViewHolder(
+        val binding: ItemNoteListBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         val noteTitle : TextView
         val noteText : TextView
 
         init {
-            noteTitle = view.findViewById(R.id.textCourse)
-            noteText = view.findViewById(R.id.textTitle)
+            noteTitle = binding.textCourse
+            noteText = binding.textTitle
+        }
+
+        fun navigateToNote(
+            note: Note,
+            view: View
+        ) {
+            val direction = NoteListFragmentDirections.actionNoteListFragmentToNoteEditFragment(note.id)
+            view.findNavController().navigate(direction)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteItemViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_note_list, parent, false)
 
-        return NoteItemViewHolder(view)
+        Log.d("devdebug", "viewholder created")
+
+        return NoteItemViewHolder(ItemNoteListBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: NoteItemViewHolder, position: Int) {
-        val note : NoteInfo = notes[position]
+        val note : Note = getItem(position)
 
-        holder.noteTitle.text = note.title
-        holder.noteText.text = note.text
+        Log.d("devdebug", "viewholder $position")
+
+        with(holder) {
+            binding.textCourse.text = note.noteTitle
+            binding.textTitle.text = note.noteText
+            binding.root.setOnClickListener { view ->
+                holder.navigateToNote(note, binding.root)
+            }
+
+        }
+
     }
 
-    override fun getItemCount() = notes.size
+}
+
+private class NoteDiffCallback : DiffUtil.ItemCallback<Note>() {
+
+    override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
+        return oldItem.id == newItem.id
+    }
+
+    override fun areContentsTheSame(oldItem: Note, newItem: Note): Boolean {
+        return oldItem == newItem
+    }
 }
