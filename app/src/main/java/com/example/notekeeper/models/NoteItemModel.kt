@@ -63,4 +63,16 @@ class NoteItemModel @Inject constructor(private val noteRepo: NoteRepository): V
             noteRepo.updateNote(updatedNote)
         }
     }
+
+    fun deleteNote() {
+
+        if (selectedNoteId == 0) {
+            selectedNote = null
+        }
+        else {
+            viewModelScope.launch(Dispatchers.IO) {
+                noteRepo.deleteNote(selectedNote?.value)
+            }
+        }
+    }
 }
