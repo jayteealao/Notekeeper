@@ -16,18 +16,30 @@
             app:destination="@id/NoteEditFragment" />
     </fragment>
     <fragment
+        android:id="@+id/BookmarkMainFragment"
+        android:name="com.example.notekeeper.BookmarkMainFragment"
+        android:label="@string/bookmark_main_fragment"
+        tools:layout="@layout/fragment_bookmark_main">
+
+    </fragment>
+    <fragment
         android:id="@+id/NoteEditFragment"
         android:name="com.example.notekeeper.NoteEditFragment"
         android:label="@string/note_edit_fragment_label"
         tools:layout="@layout/fragment_note_edit">
 
-        <action
-            android:id="@+id/action_NoteEditFragment_to_NoteListFragment"
-            app:destination="@id/NoteListFragment" />
-
         <argument
             android:name="id"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_NoteEditFragment_to_NoteListFragment"
+            app:destination="@id/NoteListFragment" />
     </fragment>
+    <action
+        android:id="@+id/action_global_BookmarkMainFragment"
+        app:destination="@id/BookmarkMainFragment" />
+    <action
+        android:id="@+id/action_global_NoteListFragment"
+        app:destination="@id/NoteListFragment" />
 </navigation>

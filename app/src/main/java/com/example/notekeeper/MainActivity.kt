@@ -1,7 +1,6 @@
 package com.example.notekeeper
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -9,6 +8,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.notekeeper.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,13 +27,30 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.toolbar)
 
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+//        val navController = findNavController(R.id.nav_host_fragment_notes)
+        val navHostFragment =supportFragmentManager.findFragmentById(R.id.nav_host_fragment_notes) as NavHostFragment
+        val navController = navHostFragment.navController
+
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         binding.fab.setOnClickListener { view ->
             val direction = NoteListFragmentDirections.actionNoteListFragmentToNoteEditFragment()
             navController.navigate(direction)
+        }
+
+        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.notes_menu_item -> {
+                    navController.navigate(R.id.action_global_NoteListFragment)
+                    true
+                }
+                R.id.bookmark_link_menu_item -> {
+                    navController.navigate(R.id.action_global_BookmarkMainFragment)
+                    true
+                }
+                else -> false
+            }
         }
     }
 
@@ -53,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        val navController = findNavController(R.id.nav_host_fragment_notes)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
