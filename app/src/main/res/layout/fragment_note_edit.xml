@@ -22,21 +22,58 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editNoteText"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="@string/note_hint"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editNoteTitle"
-        android:importantForAutofill="no" />
+            android:id="@+id/editNoteText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/note_hint"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editNoteTitle"
+            android:importantForAutofill="no"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout" />
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/linearLayout">
+
+        <ImageButton
+                android:src="@drawable/ic_baseline_format_bold_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/boldButton"
+                android:minHeight="48dp" />
+
+        <ImageButton
+                android:src="@drawable/ic_baseline_format_italic_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/italicsButton"
+                android:minHeight="48dp" />
+
+        <ImageButton
+                android:src="@drawable/ic_baseline_format_underlined_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/underlineButton"
+                android:minHeight="48dp" />
+
+        <ImageButton
+                android:src="@drawable/ic_baseline_format_color_fill_24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/colorButton"
+                android:minHeight="48dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

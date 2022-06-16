@@ -11,6 +11,7 @@ import com.example.notekeeper.models.NoteItemModel
 import com.example.notekeeper.models.NoteViewModel
 import android.text.Editable.Factory
 import android.view.*
+import android.widget.Toast
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -20,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class NoteEditFragment : Fragment() {
 
-    private val notesmodel: NoteViewModel by activityViewModels()
     private val noteItemModel: NoteItemModel by viewModels()
     private val arg: NoteEditFragmentArgs by navArgs()
     private val editableFactory = Factory()
@@ -28,7 +28,7 @@ class NoteEditFragment : Fragment() {
     private var _binding: FragmentNoteEditBinding? = null
 
     // This property is only valid between onCreateView and
-    // onDestroyView.
+    // onDestro
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class NoteEditFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentNoteEditBinding.inflate(inflater, container, false)
         if (arg.id == 0) {
@@ -60,6 +60,13 @@ class NoteEditFragment : Fragment() {
                 editableFactory.newEditable(note.noteTitle ?: "test")
             binding.editNoteText.text =
                 editableFactory.newEditable(note.noteText)
+        }
+        binding.editNoteText.setTextIsSelectable(true)
+        binding.editNoteText.setOnEditorActionListener { v, _, _ ->
+            if (v.hasSelection()) {
+                Toast.makeText(v.context, "selection", Toast.LENGTH_LONG).show()
+            }
+            return@setOnEditorActionListener true
         }
     }
 
@@ -122,4 +129,5 @@ class NoteEditFragment : Fragment() {
         findNavController().navigate(direction)
         return true
     }
+
 }

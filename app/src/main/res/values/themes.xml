@@ -2,16 +2,44 @@
     <!-- Base application theme. -->
     <style name="Theme.NoteKeeper" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/app_primary</item>
-        <item name="colorPrimaryVariant">@color/app_primary_variant</item>
+        <item name="colorPrimary">#FFFBFA</item>
+        <item name="colorPrimaryVariant">@color/app_pink_300</item>
         <item name="colorOnPrimary">@color/app_on_primary</item>
+
+        <!-- <item name="colorOnSurfaceVariant">@color/app_on_primary</item>-->
+        <item name="colorOnSurface">@color/app_on_primary</item>
+        <item name="colorOnBackground">@color/app_on_primary</item>
+
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/app_secondary</item>
+        <item name="colorSecondary">@color/app_pink_900</item>
         <item name="colorSecondaryVariant">@color/app_pink_300</item>
-        <item name="colorOnSecondary">@color/app_on_secondary</item>
+        <item name="colorOnSecondary">@color/white</item>
+
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorSecondaryVariant</item>
+
         <!-- Customize your theme here. -->
+        <item name="android:textColorPrimary">@color/app_on_primary</item>
+        <!--        <item name="actionBarStyle">@style/ActionBarTransparent</item>-->
+        <!--        <item name="windowActionBarOverlay">true</item>-->
+
+
+    </style>
+
+    <style name="Widget.NoteKeeper.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:elevation">2dp</item>
+<!--        <item name="android:layout_margin">8dp</item>-->
+        <!--        <item name="android:background">@color/app_pink_50</item>-->
+        <!--        <item name="android:background">@drawable/toolbar_rounded_corners</item>-->
+        <!--        <item name="android:textColor">?attr/colorOnPrimary</item>-->
+        <item name="android:theme">@style/Theme.NoteKeeper</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <!--        <item name="backgroundColor">@color/app_pink_50</item>-->
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar" parent="">
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/app_pink_900</item>
     </style>
 
     <style name="Theme.NoteKeeper.NoActionBar">
@@ -22,4 +50,12 @@
     <style name="Theme.NoteKeeper.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.NoteKeeper.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!--<style name="ActionBarTransparent" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="android:background">@color/transparent_black</item>
+        <item name="background">@color/transparent_black</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="colorPrimary">@android:color/transparent</item>
+    </style>-->
 </resources>

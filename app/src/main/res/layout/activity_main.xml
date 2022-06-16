@@ -7,63 +7,51 @@
     android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:alpha="1"
-        android:background="#03FEEAE6"
-        android:fitsSystemWindows="true"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:context=".MainActivity">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:alpha="1"
+            android:background="#03FEEAE6"
+            android:fitsSystemWindows="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alpha="100"
-            android:background="@color/color_surface"
-            android:elevation="0dp"
-            android:theme="@style/Theme.NoteKeeper.NoActionBar"
-            android:visibility="visible"
-            app:elevation="0dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="100"
+                android:background="@color/color_surface"
+                android:elevation="0dp"
+                android:theme="@style/Theme.NoteKeeper.NoActionBar"
+                android:visibility="visible"
+                app:elevation="0dp">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
-                style="@style/Widget.NoteKeeper.Toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/app_background"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/Theme.NoteKeeper" />
+                    android:id="@+id/toolbar"
+                    style="@style/Widget.NoteKeeper.Toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="@color/app_background"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:popupTheme="@style/Theme.NoteKeeper" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
         <include layout="@layout/content_main" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/fab_margin"
-            android:layout_marginBottom="@dimen/fab_margin"
-            android:contentDescription="@string/main_activity_fab_description"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
-            app:maxImageSize="48dp"
-            app:srcCompat="@drawable/ic_baseline_add_24" />
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginEnd="@dimen/fab_margin"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:contentDescription="@string/main_activity_fab_description"
+                app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+                app:maxImageSize="48dp"
+                app:srcCompat="@drawable/ic_baseline_add_24" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/menu_bottom_navigation"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,19 +39,6 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(direction)
         }
 
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
-            when(item.itemId) {
-                R.id.notes_menu_item -> {
-                    navController.navigate(R.id.action_global_NoteListFragment)
-                    true
-                }
-                R.id.bookmark_link_menu_item -> {
-                    navController.navigate(R.id.action_global_BookmarkMainFragment)
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
